@@ -22,8 +22,8 @@ class Player {
         this.posX = this.gameWidth / 2 - this.width / 2 //0 - this.width/2
         this.posY = this.gameHeight / 2 - this.height / 2 //0 - this.height/2
 
-        this.velX = 10 //Math.cos(this.angle) //20
-        this.velY = 10 //math.sin(this.angle) //20
+        this.velX = 5 //Math.cos(this.angle) //20
+        this.velY = 5 //math.sin(this.angle) //20
 
         this.angle = 0
         //this.velT = velX*Math.cos(this.angle)+velY*Math.sin(this.angle)
@@ -32,6 +32,7 @@ class Player {
         this.setListeners()
 
     }
+
     draw() {
 
         this.ctx.save(); // save current state
@@ -51,6 +52,7 @@ class Player {
     }
 
     move() {
+
         if (this.directions.top) {
             if (this.posX >= this.gameWidth) {
                 this.posX = 0
@@ -70,10 +72,10 @@ class Player {
 
         }
         if (this.directions.right) {
-            this.angle += 20
+            this.angle += 5
         }
         if (this.directions.left) {
-            this.angle -= 20
+            this.angle -= 5
         }
 
     }
@@ -82,11 +84,11 @@ class Player {
 
     // }
     setListeners() {
-        document.onkeydown = e => {
+        document.addEventListener("keydown", e => {
             switch (e.keyCode) {
                 case this.keys.TOP_KEY:
                     this.directions.top = true
-                    this.move()
+                    // this.move()
 
                     break
                 case this.keys.BOTTOM_KEY:
@@ -95,12 +97,12 @@ class Player {
                     break
                 case this.keys.RIGHT_KEY:
                     this.directions.right = true
-                    this.move()
+                    // this.move()
                     console.log("derecha")
                     break
                 case this.keys.LEFT_KEY:
                     this.directions.left = true
-                    this.move()
+                    // this.move()
                     break
                 case this.keys.SPACE:
                     this.shoot()
@@ -110,8 +112,8 @@ class Player {
 
                     break
             }
-        }
-        document.onkeyup = e => {
+        })
+        document.addEventListener("keyup", e => {
             switch (e.keyCode) {
                 case this.keys.TOP_KEY:
                     this.directions.top = false
@@ -132,11 +134,10 @@ class Player {
 
 
             }
-        }
+        })
     }
     shoot() {
-        this.bullets.push(new Bullet(this.ctx, this.posX, this.posY, this.height))
+        this.bullets.push(new Bullet(this.ctx, this.posX, this.posY, this.angle))
     }
 
 }
-

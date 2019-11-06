@@ -1,11 +1,13 @@
 class Bullet {
-    constructor(ctx, x, y, playerH, posX, PosY) {
+    constructor(ctx, x, y, angle) {
         this.ctx = ctx
-        this.posX = x+20
-        this.posY = y+18
+        this.posX = x + 20
+        this.posY = y + 18
         //this.playerHeight = playerH
         this.velX = 10 //0
         this.velY = 10 //10
+
+        this.angle = angle
 
         this.image = new Image()
         this.image.src = "./img/spaceBuilding_004.png"
@@ -21,10 +23,11 @@ class Bullet {
         this.ctx.drawImage(this.image, this.posX, this.posY, this.width, this.height)
         //this.ctx.restore();
     }
-    move(angle) {
-        console.log(angle)
-        this.posX += this.velX * Math.sin(angle * Math.PI / 180) //this.velX
-        this.posY += -this.velY * Math.cos(angle * Math.PI / 180) //this.velY
+    move() {
+        console.log("el move de las balas")
+        console.log(this.angle)
+        this.posX += this.velX * Math.sin(this.angle * Math.PI / 180) //this.velX
+        this.posY += -this.velY * Math.cos(this.angle * Math.PI / 180) //this.velY
     }
 
 }

@@ -37,7 +37,10 @@ const game = {
             this.clear()
             this.genAsteroids() //Dibujar asteroides
             this.drawAll()
-            // this.moveAll()
+            this.clearBullets()
+            this.clearAsteroids()
+            console.log(this.player.bullets)
+            this.moveAll()
 
             // if (this.framesCounter % 100 == 0)
 
@@ -72,7 +75,8 @@ const game = {
     },
 
     moveAll() {
-        this.player.rotate()
+        //this.player.rotate()
+        this.player.move()
     },
 
     genAsteroids() {
@@ -108,12 +112,12 @@ const game = {
     },
     isCollision() {
         return this.asteroids.some(asteroids => {
-                console.log(asteroids.posX, asteroids.posY, asteroids.height, asteroids.width)
+                //console.log(asteroids.posX, asteroids.posY, asteroids.height, asteroids.width)
                 return (
-                    asteroids.posX + asteroids.width-15 >= this.player.posX && //izquierda
-                    asteroids.posY <= this.player.posY + this.player.height-15 && // abajo
-                    asteroids.posX <= this.player.posX + this.player.width-15 && // derecha
-                    asteroids.posY + asteroids.height >= this.player.posY+15 // arriba 
+                    asteroids.posX + asteroids.width - 15 >= this.player.posX && //izquierda
+                    asteroids.posY <= this.player.posY + this.player.height - 15 && // abajo
+                    asteroids.posX <= this.player.posX + this.player.width - 15 && // derecha
+                    asteroids.posY + asteroids.height >= this.player.posY + 15 // arriba 
                 )
             }
 
@@ -134,7 +138,7 @@ const game = {
                 ) {
                     //console.log("SIIIIIIIIIIIIIIIIIIIIII")
                     this.asteroids.splice(i, 1)
-                    this.score +=10
+                    this.score += 10
                     this.player.bullets.splice(j, 1)
                 }
             }
@@ -143,7 +147,26 @@ const game = {
 
     },
     clear() {
-        this.ctx.clearRect(-150, -150, this.myCanvas.width + 150, this.myCanvas.height + 150)
+        this.ctx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height)
+    },
+    clearBullets() {
+        //funcion para limpiar obs
+
+
+        this.player.bullets.forEach((bullet, idx) => {
+            //console.log("fuera")
+            if (bullet.posX <= 0 || bullet.posX >= this.width || bullet.posY <= 0 || bullet.posY >= this.height) {
+                this.player.bullets.splice(idx, 1);
+                //console.log("me salgo")
+            }
+        });
+    },
+    clearAsteroids() {
+        this.asteroids.forEach((ast, idx) => {
+            if (ast.posX <= -200 || ast.posX >= this.width + 200 || ast.posY <= -200 || ast.posY >= this.height + 200) {
+                this.asteroids.splice(idx, 1)
+            }
+        });
     },
     gameOver() {
         clearInterval(this.interval) // detiene el juego
