@@ -57,9 +57,9 @@ const game = {
     reset() {
         this.background = new Background(this.ctx, this.width, this.height)
         this.player = new Player(this.ctx, this.myCanvas.width, this.myCanvas.height, this.keys)
-            this.scoreboard = ScoreBoard;
-            this.scoreboard.init(this.ctx);
-            this.score = 0;
+        this.scoreboard = ScoreBoard;
+        this.scoreboard.init(this.ctx);
+        this.score = 0;
     },
 
     drawAll() {
@@ -75,17 +75,43 @@ const game = {
     },
 
     genAsteroids() {
+        let randomNumX = Math.floor(Math.random() * (800 - 100) + 100)
+        let randomNumY = Math.floor(Math.random() * (500 - 100) + 100)
+        let velX = Math.floor(Math.random() * 5)
+        let velY = Math.floor(Math.random() * 5)
+
         if (this.framesCounter % 200 == 0) {
-            this.asteroids.push(new Asteroid(this.ctx, -150, -150))
+            this.asteroids.push(new Asteroid(this.ctx, randomNumX, -150, velX,velY)) //arriba
+         }
+         if (this.framesCounter % 250 == 0) {
+             this.asteroids.push(new Asteroid(this.ctx, randomNumX, -150, -velX, velY))//arriba
+         }
+        if (this.framesCounter % 300 == 0) {
+            this.asteroids.push(new Asteroid(this.ctx, -150, randomNumY,velX,velY))//izquierda
+        }
+        if (this.framesCounter % 350 == 0) {
+            this.asteroids.push(new Asteroid(this.ctx, -150, randomNumY, velX, -velY))//izquierda
+        }
+        if (this.framesCounter % 200 == 0) {
+            this.asteroids.push(new Asteroid(this.ctx, randomNumX, this.height+150, -velX,-velY))//abajo
+        }
+        if (this.framesCounter % 250 == 0) {
+            this.asteroids.push(new Asteroid(this.ctx, randomNumX, this.height + 150, velX, -velY))//abajo
+        }
+        if (this.framesCounter % 300 == 0) {
+            this.asteroids.push(new Asteroid(this.ctx, this.width+150, randomNumY, -velX,-velY))// derecha
+        }
+        if (this.framesCounter % 200 == 0) {
+            this.asteroids.push(new Asteroid(this.ctx, this.width + 150, randomNumY, -velX, velY))//derecha
         }
     },
     isCollision() {
         return this.asteroids.some(asteroids => {
                 return (
-                    asteroids.posX + asteroids.width >= this.player.posX && //izquierda
-                    asteroids.posY <= this.player.posY + this.player.height && // abajo
-                    asteroids.posX <= this.player.posX + this.player.width && // derecha
-                    asteroids.posY + asteroids.height >= this.player.posY // arriba 
+                    asteroids.posX + asteroids.width - 30 >= this.player.posX && //izquierda
+                    asteroids.posY <= this.player.posY + this.player.height - 30 && // abajo
+                    asteroids.posX <= this.player.posX + this.player.width - 30 && // derecha
+                    asteroids.posY + asteroids.height >= this.player.posY + 30 // arriba 
                 )
             }
 
@@ -98,15 +124,15 @@ const game = {
                 console.log("what the fuck")
                 //const element = array[j];
                 if (
-                    this.player.bullets.length>0 &&
+                    this.player.bullets.length > 0 &&
                     this.asteroids[i].posX + this.asteroids[i].width >= this.player.bullets[j].posX && //izquierda
                     this.asteroids[i].posY <= this.player.bullets[j].posY + this.player.bullets[j].height && // abajo
                     this.asteroids[i].posX <= this.player.bullets[j].posX + this.player.bullets[j].width && // derecha
                     this.asteroids[i].posY + this.asteroids[i].height >= this.player.bullets[j].posY // arriba 
                 ) {
                     console.log("SIIIIIIIIIIIIIIIIIIIIII")
-                    this.asteroids.splice(i,1)
-                    this.bullets.splice(j,1)
+                    this.asteroids.splice(i, 1)
+                    this.player.bullets.splice(j, 1)
                 }
             }
         }
