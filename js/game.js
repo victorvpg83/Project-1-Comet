@@ -6,7 +6,7 @@ const game = {
     fps: 60,
     asteroids: [],
     framesCounter: 0,
-    score: undefined,
+    score: 0,
     keys: {
         TOP_KEY: 38,
         BOTTOM_KEY: 40,
@@ -34,17 +34,18 @@ const game = {
             this.framesCounter++
 
             if (this.framesCounter > 1000) this.framesCounter = 0
+            this.clear()
             this.genAsteroids() //Dibujar asteroides
             this.drawAll()
             // this.moveAll()
 
-            if (this.framesCounter % 100 == 0) this.score++
+            // if (this.framesCounter % 100 == 0)
 
             if (this.isCollision()) {
                 this.gameOver()
             }
             if (this.isCollision2()) {
-                alert("asdas")
+                //alert("asdas")
                 this.gameOver()
             }
 
@@ -81,37 +82,38 @@ const game = {
         let velY = Math.floor(Math.random() * 5)
 
         if (this.framesCounter % 200 == 0) {
-            this.asteroids.push(new Asteroid(this.ctx, randomNumX, -150, velX,velY)) //arriba
-         }
-         if (this.framesCounter % 250 == 0) {
-             this.asteroids.push(new Asteroid(this.ctx, randomNumX, -150, -velX, velY))//arriba
-         }
-        if (this.framesCounter % 300 == 0) {
-            this.asteroids.push(new Asteroid(this.ctx, -150, randomNumY,velX,velY))//izquierda
-        }
-        if (this.framesCounter % 350 == 0) {
-            this.asteroids.push(new Asteroid(this.ctx, -150, randomNumY, velX, -velY))//izquierda
-        }
-        if (this.framesCounter % 200 == 0) {
-            this.asteroids.push(new Asteroid(this.ctx, randomNumX, this.height+150, -velX,-velY))//abajo
+            this.asteroids.push(new Asteroid(this.ctx, randomNumX, -150, velX, velY)) //arriba
         }
         if (this.framesCounter % 250 == 0) {
-            this.asteroids.push(new Asteroid(this.ctx, randomNumX, this.height + 150, velX, -velY))//abajo
+            this.asteroids.push(new Asteroid(this.ctx, randomNumX, -150, -velX, velY)) //arriba
         }
         if (this.framesCounter % 300 == 0) {
-            this.asteroids.push(new Asteroid(this.ctx, this.width+150, randomNumY, -velX,-velY))// derecha
+            this.asteroids.push(new Asteroid(this.ctx, -150, randomNumY, velX, velY)) //izquierda
+        }
+        if (this.framesCounter % 350 == 0) {
+            this.asteroids.push(new Asteroid(this.ctx, -150, randomNumY, velX, -velY)) //izquierda
         }
         if (this.framesCounter % 200 == 0) {
-            this.asteroids.push(new Asteroid(this.ctx, this.width + 150, randomNumY, -velX, velY))//derecha
+            this.asteroids.push(new Asteroid(this.ctx, randomNumX, this.height + 150, -velX, -velY)) //abajo
+        }
+        if (this.framesCounter % 250 == 0) {
+            this.asteroids.push(new Asteroid(this.ctx, randomNumX, this.height + 150, velX, -velY)) //abajo
+        }
+        if (this.framesCounter % 300 == 0) {
+            this.asteroids.push(new Asteroid(this.ctx, this.width + 150, randomNumY, -velX, -velY)) // derecha
+        }
+        if (this.framesCounter % 200 == 0) {
+            this.asteroids.push(new Asteroid(this.ctx, this.width + 150, randomNumY, -velX, velY)) //derecha
         }
     },
     isCollision() {
         return this.asteroids.some(asteroids => {
+                console.log(asteroids.posX, asteroids.posY, asteroids.height, asteroids.width)
                 return (
-                    asteroids.posX + asteroids.width - 30 >= this.player.posX && //izquierda
-                    asteroids.posY <= this.player.posY + this.player.height - 30 && // abajo
-                    asteroids.posX <= this.player.posX + this.player.width - 30 && // derecha
-                    asteroids.posY + asteroids.height >= this.player.posY + 30 // arriba 
+                    asteroids.posX + asteroids.width-15 >= this.player.posX && //izquierda
+                    asteroids.posY <= this.player.posY + this.player.height-15 && // abajo
+                    asteroids.posX <= this.player.posX + this.player.width-15 && // derecha
+                    asteroids.posY + asteroids.height >= this.player.posY+15 // arriba 
                 )
             }
 
@@ -121,7 +123,7 @@ const game = {
     isCollision2() {
         for (let i = 0; i < this.asteroids.length; i++) {
             for (let j = 0; j < this.player.bullets.length; j++) {
-                console.log("what the fuck")
+                //console.log("what the fuck")
                 //const element = array[j];
                 if (
                     this.player.bullets.length > 0 &&
@@ -130,14 +132,18 @@ const game = {
                     this.asteroids[i].posX <= this.player.bullets[j].posX + this.player.bullets[j].width && // derecha
                     this.asteroids[i].posY + this.asteroids[i].height >= this.player.bullets[j].posY // arriba 
                 ) {
-                    console.log("SIIIIIIIIIIIIIIIIIIIIII")
+                    //console.log("SIIIIIIIIIIIIIIIIIIIIII")
                     this.asteroids.splice(i, 1)
+                    this.score +=10
                     this.player.bullets.splice(j, 1)
                 }
             }
         }
 
 
+    },
+    clear() {
+        this.ctx.clearRect(-150, -150, this.myCanvas.width + 150, this.myCanvas.height + 150)
     },
     gameOver() {
         clearInterval(this.interval) // detiene el juego

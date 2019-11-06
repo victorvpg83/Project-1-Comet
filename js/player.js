@@ -70,10 +70,10 @@ class Player {
 
         }
         if (this.directions.right) {
-            this.angle += 10
+            this.angle += 20
         }
         if (this.directions.left) {
-            this.angle -= 10
+            this.angle -= 20
         }
 
     }
