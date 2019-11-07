@@ -1,4 +1,4 @@
-class Asteroid {
+class Meteor {
     constructor(ctx, x, y, velX, velY) {
         this.ctx = ctx
         this.posX = x + Math.floor(Math.random() * 50)
@@ -7,11 +7,11 @@ class Asteroid {
         this.velX = velX
         this.velY = velY
 
-        this.width = 100
-        this.height = 100
+        this.width = 80
+        this.height = 80
 
         this.image = new Image()
-        this.image.src = "./img/spin-33.png"
+        this.image.src = "./img/spin-26.png"
 
     }
     draw() {

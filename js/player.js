@@ -15,6 +15,9 @@ class Player {
             top: false
         }
 
+        // this.laser = document.createElement("audio")
+        // this.laser.src = "./sound/NFF-laser-gun.wav"
+
         this.bullets = []
 
 
@@ -107,6 +110,8 @@ class Player {
                 case this.keys.SPACE:
                     this.shoot()
                     console.log("funciona")
+
+
                     break
                 case this.keys.A_KEY:
 
@@ -117,6 +122,8 @@ class Player {
             switch (e.keyCode) {
                 case this.keys.TOP_KEY:
                     this.directions.top = false
+                    // this.velX *.3
+                    // this.velY*.3
 
 
                     break
@@ -137,7 +144,11 @@ class Player {
         })
     }
     shoot() {
+        let laser = document.createElement("audio")
+        laser.src = "./sound/NFF-laser-gun.wav"
         this.bullets.push(new Bullet(this.ctx, this.posX, this.posY, this.angle))
+        laser.volume = .3
+        laser.play()
     }
 
 }
