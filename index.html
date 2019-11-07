@@ -9,6 +9,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap-reboot.min.css"
     />
+    <link rel="stylesheet" href="./css/index.css">
+
     <script src="./js/scoreBoard.js"></script>
     <script src="./js/meteors.js"></script>
     <script src="./js/asteroids.js"></script>
@@ -19,7 +21,18 @@
     <script src="./js/index.js"></script>
   </head>
   <body>
-    <audio src="./sound/POL-the-foyer-short.wav" autoplay loop></audio>
+    <header class="header" id="header">
+      <div class="portada">
+        <img src="./img/Comet portada.png" alt="portada comet" width="550" height="550">
+      </div>
+      <div class="texto">
+        <p class="intro">Debido a la explosión de una supernova cercana a la tierra, se nos aproxima la mayor lluvia de asteroides jamás vista por el ser humano, en una reunión a nivel mundial se acordó reclutar a los mejores pilotos y crear un escuadón para eliminar gran parte de la amenaza... </p>
+        <p class="pregunta">¿Estás preparado para la batalla?</p>
+        <div class="but">
+          <a class="button" id="button" href="#">Despegar</a>
+        </div>
+      </div>
+    </header>
     <canvas id="myCanvas"></canvas>
     <!-- <script src="./js/background.js"></script>
     <script src="./js/player.js"></script>

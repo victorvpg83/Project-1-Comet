@@ -244,7 +244,7 @@ const game = {
         this.ctx.fillText("GAME OVER!", this.width / 2 - 150, this.height / 2)
         let dead = document.createElement("audio")
         dead.src = "./sound/explosion-01.mp3"
-        dead.volume = .5
+        dead.volume = 1
         dead.play()
     },
     drawScore() {
