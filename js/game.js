@@ -45,7 +45,7 @@ const game = {
             this.clearAsteroids()
             this.clearMeteors()
             this.playMusic()
-            console.log(this.player.bullets)
+            // console.log(this.player.bullets)
             this.moveAll()
 
             // if (this.framesCounter % 100 == 0)
@@ -72,6 +72,8 @@ const game = {
         this.background = new Background(this.ctx, this.width, this.height)
         this.player = new Player(this.ctx, this.myCanvas.width, this.myCanvas.height, this.keys)
         this.scoreboard = ScoreBoard;
+        this.asteroids = []
+        this.meteors = []
         this.scoreboard.init(this.ctx);
         this.score = 0;
         //this.playMusic()
