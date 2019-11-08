@@ -80,11 +80,13 @@ const game = {
     drawAll() {
         this.background.draw()
         this.player.draw()
+        //this.shield.draw()
         this.asteroids.forEach(asteroid => asteroid.draw())
         this.asteroids.forEach(asteroid => asteroid.move())
         this.meteors.forEach(meteor => meteor.draw())
         this.meteors.forEach(meteor => meteor.move())
         this.drawScore()
+        // this.player.shield()
     },
 
     moveAll() {
@@ -189,10 +191,10 @@ const game = {
                 //const element = array[j];
                 if (
                     this.player.bullets.length > 0 &&
-                    this.asteroids[i].posX + this.asteroids[i].width - 30 >= this.player.bullets[j].posX && //izquierda
-                    this.asteroids[i].posY <= this.player.bullets[j].posY + this.player.bullets[j].height - 30 && // abajo
-                    this.asteroids[i].posX <= this.player.bullets[j].posX + this.player.bullets[j].width - 30 && // derecha
-                    this.asteroids[i].posY + this.asteroids[i].height >= this.player.bullets[j].posY + 30 // arriba 
+                    this.asteroids[i].posX + this.asteroids[i].width - 20 >= this.player.bullets[j].posX && //izquierda
+                    this.asteroids[i].posY <= this.player.bullets[j].posY + this.player.bullets[j].height - 20 && // abajo
+                    this.asteroids[i].posX <= this.player.bullets[j].posX + this.player.bullets[j].width - 20 && // derecha
+                    this.asteroids[i].posY + this.asteroids[i].height >= this.player.bullets[j].posY + 20 // arriba 
                 ) {
                     //console.log("SIIIIIIIIIIIIIIIIIIIIII")
                     this.asteroids.splice(i, 1)
@@ -246,6 +248,8 @@ const game = {
         dead.src = "./sound/explosion-01.mp3"
         dead.volume = 1
         dead.play()
+        document.getElementById("myCanvas").style.display = "none"
+        document.getElementById("gameOver").style.display = "block"
     },
     drawScore() {
         this.scoreboard.update(this.score); //pintar marcador

@@ -4,6 +4,8 @@ class Player {
         this.gameWidth = w
         this.gameHeight = h
 
+        this.canShield = false
+
         this.image = new Image()
         this.image.src = "./img/spaceShips_008.png"
 
@@ -42,7 +44,7 @@ class Player {
         this.ctx.translate(this.posX + this.width / 2, this.posY + this.height / 2) // cambiamos origen rotación this.gameWidth/2, this.gameHeight/2
         this.ctx.rotate(Math.PI / 180 * this.angle); // rotate
         this.ctx.translate(-this.posX - this.width / 2, -this.posY - this.height / 2)
-        this.ctx.drawImage(this.image, this.posX, this.posY, this.width, this.height); // draws a chain link or dagger
+        this.ctx.drawImage(this.image, this.posX, this.posY, this.width, this.height) // draws a chain link or dagger
         this.ctx.restore();
 
 
@@ -72,6 +74,10 @@ class Player {
 
             this.posX += this.velX * Math.sin(this.angle * Math.PI / 180)
             this.posY += -(this.velY * Math.cos(this.angle * Math.PI / 180))
+            // let run = document.createElement("audio")
+            // run.src = "./sound/NFF-accelerator.wav"
+            // run.volume = .3
+            // run.play()
 
         }
         if (this.directions.right) {
@@ -114,6 +120,9 @@ class Player {
 
                     break
                 case this.keys.A_KEY:
+                    // this.canShield = true
+                    // this.shield()
+
 
                     break
             }
@@ -139,6 +148,11 @@ class Player {
                     this.directions.left = false
                     break
 
+                case this.keys.A_KEY:
+                    // this.canShield = false
+                    // this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight)
+                    break
+
 
             }
         })
@@ -149,6 +163,20 @@ class Player {
         this.bullets.push(new Bullet(this.ctx, this.posX, this.posY, this.angle))
         laser.volume = .3
         laser.play()
+    }
+    shield() {
+        if (this.canShield) {
+
+            this.ctx.strokeStyle = "Blue"
+            this.ctx.lineWidth = 10
+            // this.ctx.beginPath();
+            this.ctx.arc(this.posX + 20, this.posY + 18, 100, 0, Math.PI * 2)
+            this.ctx.stroke()
+            // let shield = new Shield(this.ctx, this.posY, this.posY)
+            console.log("entra en shield")
+        }
+        //shield.draw()
+
     }
 
 }

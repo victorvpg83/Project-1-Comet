@@ -6,6 +6,22 @@
     margin-right: 30px;
 }
 
+.gameOver {
+    background-image: url(../img/gameOver.png);
+    height: 600px;
+    background-size: 100%;
+    display: none;
+}
+
+.pregunta2 {
+    padding-top: 220px;
+    color:blue;
+    font-size: 2.5em;
+    text-align: center;
+    font-weight: 900;
+    
+}
+
 .texto {
     padding-left: 40px;
     padding-right: 40px;
@@ -55,4 +71,31 @@
     margin: 0 auto; */
     display: flex;
     justify-content: center;
+}
+
+.buttonR {
+    border-radius: 15px;
+    background-color:blue;
+    color: cornsilk;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 20px 60px;
+    border: 2px solid grey;
+    opacity: .75;
+    font-size: 1.3em;
+}
+.buttonR:hover {
+    opacity: 1;
+    text-decoration: none;
+    color: cornsilk;
+}
+
+
+.butR {
+    padding-top: 250px;
+    display: flex;
+    justify-content: center;
+
+
+
 }
